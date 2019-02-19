@@ -11,8 +11,8 @@ DLList: src/DLList.c
 DLListTests: DLList
 	$(CC) -g test/DLListTests.c bin/DLList.o -o bin/DLListTests
 
-HashtableTests: Hashtable
-	$(CC) -g test/HashtableTests.c bin/Hashtable.o -o bin/HashtableTests
+HashtableTests: Hashtable DLList
+	$(CC) -g test/HashtableTests.c bin/Hashtable.o bin/DLList.o -o bin/HashtableTests
 
 test: build DLListTests HashtableTests
 	./bin/DLListTests
