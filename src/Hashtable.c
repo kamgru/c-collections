@@ -9,6 +9,32 @@ static DLList* find_chain(Hashtable* hashtable, int key){
     return hashtable->buckets[hash_key(hashtable, key)];
 }
 
+static HashtableNode* ht_find_node(Hashtable* hashtable, int key){
+    DLList* chain = find_chain(hashtable, key);
+    ListNode* cursor = chain->head;
+    while(cursor){
+        HashtableNode* htNode = (HashtableNode*)cursor->value;
+        if (htNode->key == key){
+            return htNode;
+        }
+        cursor = cursor->next;
+    }
+
+    return NULL;
+}
+
+static ListNode* find_dl_node(DLList* list, int key){
+    ListNode* cursor = list->head;
+    while(cursor){
+        HashtableNode* htNode = (HashtableNode*)cursor->value;
+        if (htNode->key == key){
+            return cursor;
+        }
+        cursor = cursor->next;
+    }
+    return NULL;
+}
+
 HashtableNode* htn_create(int key, void* value){
     HashtableNode* node = malloc(sizeof(HashtableNode));
     node->key = key;
@@ -40,16 +66,19 @@ bool ht_insert(Hashtable* hashtable, int key, void* value){
 }
 
 void* ht_find(Hashtable* hashtable, int key){
+    HashtableNode* node = ht_find_node(hashtable, key);
+    return node != NULL 
+        ? node->value 
+        : NULL;
+}
+
+void ht_remove(Hashtable* hashtable, int key){
     DLList* chain = find_chain(hashtable, key);
-    
-    ListNode* cursor = chain->head;
-    while(cursor){
-        HashtableNode* htNode = (HashtableNode*)cursor->value;
-        if (htNode->key == key){
-            return htNode->value;
-        }
-        cursor = cursor->next;
+    ListNode* node = find_dl_node(chain, key);
+
+    if (node == NULL){
+        return;
     }
 
-    return NULL;
+    dl_remove_node(chain, node);
 }

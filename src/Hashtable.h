@@ -18,3 +18,4 @@ struct HashtableNode {
 Hashtable* ht_create();
 bool ht_insert(Hashtable* hashtable, int key, void* value);
 void* ht_find(Hashtable* hashtable, int key);
+void ht_remove(Hashtable* hashtable, int key);
