@@ -28,9 +28,15 @@ Hashtable* ht_create(){
     return hashtable;
 }
 
-void ht_insert(Hashtable* hashtable, int key, void* value){
+bool ht_insert(Hashtable* hashtable, int key, void* value){
     DLList* chain = find_chain(hashtable, key);
+
+    if (ht_find(hashtable, key) != NULL){
+        return false;
+    }
+
     dl_push_back(chain, htn_create(key, value));
+    return true;
 }
 
 void* ht_find(Hashtable* hashtable, int key){

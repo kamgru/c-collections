@@ -1,4 +1,5 @@
 #include "DLList.h"
+#include <stdbool.h>
 
 #define HASHTABLE_BUCKET_COUNT 32;
 
@@ -15,5 +16,5 @@ struct HashtableNode {
 };
 
 Hashtable* ht_create();
-void ht_insert(Hashtable* hashtable, int key, void* value);
+bool ht_insert(Hashtable* hashtable, int key, void* value);
 void* ht_find(Hashtable* hashtable, int key);

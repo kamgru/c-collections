@@ -1,6 +1,7 @@
 #include "Tests.h"
 #include "../src/Hashtable.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 int when_hashtable_created_it_should_not_be_null(){
     Hashtable* ht = ht_create();
@@ -12,6 +13,21 @@ int when_value_not_present_find_should_return_null(){
     Hashtable* ht = ht_create();
     void* value = ht_find(ht, 123);
     _assert(value == NULL);
+    return 0;
+}
+
+int when_value_inserted_it_should_return_true(){
+    Hashtable* ht = ht_create();
+    bool result = ht_insert(ht, 1, "test value");
+    _assert(result);
+    return 0;
+}
+
+int when_key_already_exists_it_should_not_add(){
+    Hashtable* ht = ht_create();
+    ht_insert(ht, 1, "test value");
+    bool result = ht_insert(ht, 1, "another value");
+    _assert(!result);
     return 0;
 }
 
@@ -35,5 +51,7 @@ int main(){
     _verify(when_hashtable_created_it_should_not_be_null);
     _verify(when_value_not_present_find_should_return_null);
     _verify(test_find_theory);
+    _verify(when_value_inserted_it_should_return_true);
+    _verify(when_key_already_exists_it_should_not_add);
     return 0;
 }
