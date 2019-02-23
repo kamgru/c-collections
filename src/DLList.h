@@ -23,5 +23,6 @@ void dl_remove_node(DLList* list, ListNode* node);
 void dl_destroy(DLList* list);
 ListNode* ln_create(void* value);
 ListNode* dl_pop_back(DLList* list);
+ListNode* dl_pop_front(DLList* list);
 
 #endif

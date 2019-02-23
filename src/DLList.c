@@ -126,3 +126,22 @@ ListNode* dl_pop_back(DLList* list){
     list->size--;
     return node;
 }
+
+ListNode* dl_pop_front(DLList* list){
+    if (list->size == 0){
+        return NULL;
+    }
+
+    ListNode* node = list->head;
+    if (list->size == 1){
+        list->head = NULL;
+        list->tail = NULL;
+    }
+    else {
+        list->head = list->head->next;
+        list->head->previous = NULL;
+    }
+
+    list->size--;
+    return node;
+}

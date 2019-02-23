@@ -274,6 +274,32 @@ int test_pop_back_theory(){
         ListNode* node = dl_pop_back(list);
         _assert(node->value == testValues[i]);
     }
+    dl_destroy(list);
+    return 0;
+}
+
+//list pop front tests
+int when_list_empty_pop_front_should_return_null(){
+    DLList* list = dl_create();
+    ListNode* node = dl_pop_front(list);
+    _assert(node == NULL);
+    dl_destroy(list);
+    return 0;
+}
+
+int test_pop_front_theory(){
+    DLList* list = dl_create();
+    char* testValues[5] = {"a", "b", "c", "d", "e"};
+    for (int i = 0; i < 5; i++){
+        dl_push_back(list, testValues[i]);
+    }
+
+    for (int i = 0; i < 5; i++){
+        ListNode* node = dl_pop_front(list);
+        _assert(node->value == testValues[i]);
+    }
+
+    dl_destroy(list);
     return 0;
 }
 
@@ -307,5 +333,8 @@ int main(){
 
     _verify(when_list_empty_pop_back_should_return_null);
     _verify(test_pop_back_theory);
+
+    _verify(when_list_empty_pop_front_should_return_null);
+    _verify(test_pop_front_theory);
     return 0;
 }
