@@ -254,6 +254,29 @@ int when_node_null_it_should_not_decrement_size(){
     return 0;
 }
 
+//list pop back tests
+int when_list_empty_pop_back_should_return_null(){
+    DLList* list = dl_create();
+    ListNode* node = dl_pop_back(list);
+    _assert(node == NULL);
+    dl_destroy(list);
+    return 0;
+}
+
+int test_pop_back_theory(){
+    DLList* list = dl_create();
+    char* testValues[5] = {"a", "b", "c", "d", "e"};
+    for (int i = 0; i < 5; i++){
+        dl_push_back(list, testValues[i]);
+    }
+
+    for (int i = 4; i >= 0; i--){
+        ListNode* node = dl_pop_back(list);
+        _assert(node->value == testValues[i]);
+    }
+    return 0;
+}
+
 int main(){
     _verify(when_list_created_it_should_not_be_null);
     _verify(when_list_empty_head_should_be_null);
@@ -281,5 +304,8 @@ int main(){
     _verify(when_node_removed_size_should_decrement);
     _verify(test_remove_node_theory);
     _verify(when_node_null_it_should_not_decrement_size);
+
+    _verify(when_list_empty_pop_back_should_return_null);
+    _verify(test_pop_back_theory);
     return 0;
 }

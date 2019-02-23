@@ -106,3 +106,23 @@ void dl_destroy(DLList* list){
 
     free(list);
 }
+
+ListNode* dl_pop_back(DLList* list){
+    if (list->size == 0){
+        return NULL;
+    }
+
+    ListNode* node = list->tail;
+    
+    if (list->size == 1){
+        list->tail = NULL;
+        list->head = NULL;
+    }
+    else {
+        list->tail = list->tail->previous;
+        list->tail->next = NULL;
+    }
+
+    list->size--;
+    return node;
+}
